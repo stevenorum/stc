@@ -1,0 +1,13 @@
+SCAD_DIR=parts
+STL_DIR=stl
+STL_OUT=$(patsubst $(SCAD_DIR)/%.scad, $(STL_DIR)/%.stl, $(wildcard $(SCAD_DIR)/*.scad))
+
+all: $(STL_OUT)
+
+$(STL_DIR)/%.stl:
+	openscad -o $(STL_DIR)/$*.stl $(SCAD_DIR)/$*.scad
+
+.PHONY: clean
+
+clean:
+	mv stl/*.stl stl/old/
